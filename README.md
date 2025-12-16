@@ -1,6 +1,6 @@
 # Toxicity Knowledge CoT Framework
 
-This repository provides a **batch inference and evaluation pipeline
+This repository provides a batch inference and evaluation pipeline
 designed to support toxicity knowledge Chain-of-Thought (CoT) evaluation.
 
 The framework sends JSON-formatted samples to the server,
@@ -52,6 +52,7 @@ Each item should include toxicity knowledge and metadata as follows:
 ```
 
 ### Ground Truth Label
+
 - `"activity" == "Active"` → `LABEL = 1`
 - otherwise → `LABEL = 0`
 
@@ -79,12 +80,15 @@ The framework expects the model output to include a final answer tag:
 ```xml
 <answer>독성</answer>
 ```
+
 or
+
 ```xml
 <answer>비독성</answer>
 ```
 
 Parsing rules:
+
 - `독성` → prediction = 1
 - `비독성` → prediction = 0
 
@@ -95,26 +99,28 @@ Accuracy is computed over **parsable samples only**.
 
 ## Environment Variables
 
-| Variable | Description | Default |
-|--------|-------------|---------|
-| `INFER_BASE_URL` | vLLM server base URL | `http://localhost:30001` |
-| `INFER_BATCH_PATH` | Batch inference endpoint | `/generate_batch` |
-| `INPUT_JSON` | Input JSON path | None |
-| `OUTPUT_JSON` | Output JSON path | None |
-| `BATCH_SIZE` | Batch size | `32` |
-| `RETRIES` | Retry count | `2` |
-| `REQ_TIMEOUT` | Request timeout (sec) | `300` |
+| Variable             | Description              | Default                    |
+| -------------------- | ------------------------ | -------------------------- |
+| `INFER_BASE_URL`   | vLLM server base URL     | `http://localhost:30001` |
+| `INFER_BATCH_PATH` | Batch inference endpoint | `/generate_batch`        |
+| `INPUT_JSON`       | Input JSON path          | None                       |
+| `OUTPUT_JSON`      | Output JSON path         | None                       |
+| `BATCH_SIZE`       | Batch size               | `32`                     |
+| `RETRIES`          | Retry count              | `2`                      |
+| `REQ_TIMEOUT`      | Request timeout (sec)    | `300`                    |
 
 ---
 
 ## Execution
 
 ### Using pipeline.sh
+
 ```bash
 bash pipeline.sh
 ```
 
 ### Direct execution
+
 ```bash
 python main.py \
   --input input.json \
